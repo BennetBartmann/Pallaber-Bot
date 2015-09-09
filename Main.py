@@ -32,13 +32,14 @@ modules.append(UserList(communicator))
 modules.append(Counter(communicator))
 modules.append(Seen(communicator))
 modules.append(Title(communicator))
-max_citation_interval = 3600
+current_milli_time = lambda : int(round(time.time() * 1000))
++max_citation_interval = 3600000
 while True:
     data = irc.recv ( 4096 )
 
     if data.find ( 'PING' ) != -1:
         irc.send ( 'PONG ' + data.split() [ 1 ] + '\r\n' )
-        p = math.exp((time.time()-communicator.last_activity)/max_citation_interval) * 1000/math.exp(1)
+        p = math.exp((current_milli_time()-communicator.last_activity)/max_citation_interval) * 1000/math.exp(1)
         print(p)
         if random.randint(0,1000) < p:
             irc.send("PRIVMSG ' + channel + ' :"+random.choice(citations)+'\r\n')
