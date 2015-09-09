@@ -25,22 +25,23 @@ print irc.recv ( 4096 )
 defaultlib(irc)
 irc.send ( 'NICK LaberBot_Testversion\r\n' )
 irc.send ( 'USER botty botty botty :IRC Bot\r\n' )
-irc.send ( 'JOIN #autistenchat\r\n' )
+irc.send ( 'JOIN ' + channel + '\r\n' )
 communicator = Communicator()
 modules = []
 modules.append(UserList(communicator))
 modules.append(Counter(communicator))
 modules.append(Seen(communicator))
 modules.append(Title(communicator))
-current_milli_time = lambda : int(round(time.time() * 1000))
+max_citation_interval = 3600
 while True:
     data = irc.recv ( 4096 )
 
     if data.find ( 'PING' ) != -1:
         irc.send ( 'PONG ' + data.split() [ 1 ] + '\r\n' )
-        print(math.exp((current_milli_time()-communicator.last_activity)/10000))
-        if random.randint(0,1000) < math.exp((current_milli_time()-communicator.last_activity)/10000):
-            irc.send("PRIVMSG #autistenchat :"+random.choice(citations)+'\r\n')
+        p = math.exp((time.time()-communicator.last_activity)/max_citation_interval) * 1000/math.exp(1)
+        print(p)
+        if random.randint(0,1000) < p:
+            irc.send("PRIVMSG ' + channel + ' :"+random.choice(citations)+'\r\n')
     data = data.rstrip()
     try:
         where = ''.join (data.split(':')[:2]).split (' ')[-2]
