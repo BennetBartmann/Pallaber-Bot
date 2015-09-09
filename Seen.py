@@ -17,6 +17,8 @@ class Seen(ModulePrototype):
             print "No time pickle loadable"
 
     def use(self, nick, action, where, what):
+        if action != "PRIVMSG":
+            return
         self.user[nick] = self._current_milli_time()
         picklefile = open("userseen.stats", "wb")
         pickle.dump(self.user, picklefile)
