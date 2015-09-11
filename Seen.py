@@ -3,6 +3,7 @@ import time
 import pickle
 from defaultlib import defaultlib
 from collections import defaultdict
+import Connection
 
 __author__ = 'Pups'
 class Seen(ModulePrototype):
@@ -32,12 +33,12 @@ class Seen(ModulePrototype):
         who = what.split(' ')[1]
         print (who)
         if self.user.get(who, None) is not None:
-            defaultlib.send("#autistenchat", nick + ":" + who + " sah ich zuletzt vor "+ str((self._current_milli_time()-self.user[who])/60000)+ " Minuten")
+            defaultlib.send(Connection.channel, nick + ":" + who + " sah ich zuletzt vor "+ str((self._current_milli_time()-self.user[who])/60000)+ " Minuten")
         else:
-            defaultlib.send("#autistenchat", nick + ":" + who +" hab ich noch nicht gesehen, tut mir leid")
+            defaultlib.send(Connection.channel, nick + ":" + who +" hab ich noch nicht gesehen, tut mir leid")
 
     def _idle(self, nick):
         for usr in self.communicator.user:
             if self.user.get(usr, None) is not None:
-               defaultlib.send("#autistenchat",usr +"<-"+str((self._current_milli_time()-self.user[usr])/60000)+" Minuten")
+               defaultlib.send(Connection.channel,usr +"<-"+str((self._current_milli_time()-self.user[usr])/60000)+" Minuten")
     _current_milli_time = lambda self: int(round(time.time() * 1000))

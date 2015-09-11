@@ -1,6 +1,7 @@
 from ModulePrototype import ModulePrototype
 import pickle
 import defaultlib
+import Connection
 __author__ = 'Pups'
 from collections import defaultdict
 class Counter(ModulePrototype):
@@ -18,7 +19,7 @@ class Counter(ModulePrototype):
         print [nick, action, where, what]
         if nick == 'LaberBot':
             return
-        if where != "#autistenchat":
+        if where != Connection.channel:
             return
 
         if action == "PRIVMSG":
@@ -40,9 +41,9 @@ class Counter(ModulePrototype):
         for user, number in sorted(self.user.iteritems(), key = lambda (k,v): (v,k), reverse=True):
             out_str += user+":"+str(number)+";"
             if len(out_str) > 150:
-                defaultlib.defaultlib.send("#autistenchat", out_str)
+                defaultlib.defaultlib.send(Connection.channel, out_str)
                 out_str = ""
-        defaultlib.defaultlib.send("#autistenchat", out_str)
+        defaultlib.defaultlib.send(Connection.channel, out_str)
 
 
 
