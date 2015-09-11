@@ -3,3 +3,4 @@ channel = '#pallaber-Bot'
 network = 'irc.freenode.org'
 port = 6667
 nick = 'LaberBot_Testversion'
+debug = 1
