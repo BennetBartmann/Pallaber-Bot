@@ -42,8 +42,8 @@ while True:
         if ((current_milli_time()-communicator.last_activity)/min_citation_interval > 0):
             p_new = math.log((current_milli_time()-communicator.last_activity)/min_citation_interval)
         else:
-            p = 0
-        if (p > 0):
+            p_new = 0
+        if (p_new > 0):
             p += p_new
         if (Connection.debug):
             print(p)

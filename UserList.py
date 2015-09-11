@@ -11,7 +11,7 @@ class UserList(ModulePrototype):
             self.communicator.user.remove(nick)
         if action == "PRIVMSG" and nick not in self.communicator.user:
             self.communicator.user.append(nick)
-        if action == "PRIVMSG" and what != "PING":
+        if action == "PRIVMSG" and what.find("PING") == -1:
             if (Connection.debug):
                 print 'no ping?'
             self.communicator.last_activity = self._current_milli_time()
