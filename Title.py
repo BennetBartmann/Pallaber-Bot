@@ -2,6 +2,7 @@ import re
 import defaultlib
 import urllib
 from ModulePrototype import ModulePrototype
+import Connection
 class Title(ModulePrototype):
     def use(self, nick, action, where, what):
         if re.search("(?P<url>https?://[^\s]+)", what)is not None:
@@ -9,6 +10,6 @@ class Title(ModulePrototype):
                 content = urllib.urlopen(re.search("(?P<url>https?://[^\s]+)", what).group("url")).read()
                 titleRE = re.compile("<title>(.+?)</title>")
                 title = titleRE.search(content).group(1)
-                defaultlib.defaultlib.send("#autistenchat",title )
+                defaultlib.defaultlib.send(Connection.channel,title )
             except:
-                defaultlib.defaultlib.send("#autistenchat","URL nicht Parsebar" )
+                defaultlib.defaultlib.send(Connection.channel,"URL nicht Parsebar" )
