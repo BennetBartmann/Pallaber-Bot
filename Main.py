@@ -41,7 +41,7 @@ while True:
         p = math.log((current_milli_time()-communicator.last_activity)/min_citation_interval)
         print(p)
         if random.randint(0,1) < p:
-            irc.send("PRIVMSG ' + channel + ' :"+random.choice(citations)+'\r\n')
+            irc.send('PRIVMSG ' + Connection.channel + ' :"+random.choice(citations)'+'\r\n')
     data = data.rstrip()
     try:
         where = ''.join (data.split(':')[:2]).split (' ')[-2]
