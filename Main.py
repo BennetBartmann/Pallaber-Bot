@@ -33,23 +33,20 @@ modules.append(Title(communicator))
 current_milli_time = lambda : int(round(time.time() * 1000))
 max_citation_interval = 3600000
 min_citation_interval = 600000
-p = 0
 while True:
     data = irc.recv ( 4096 )
 
     if data.find ( 'PING' ) != -1:
         irc.send ( 'PONG ' + data.split() [ 1 ] + '\r\n' )
         if ((current_milli_time()-communicator.last_activity)/min_citation_interval > 0):
-            p_new = math.log((current_milli_time()-communicator.last_activity)/min_citation_interval)
+            p = math.log((current_milli_time()-communicator.last_activity)/min_citation_interval)
         else:
-            p_new = 0
-        if (p_new > 0):
-            p += p_new
+            p = 0
         if (Connection.debug):
             print(p)
-        if random.randint(0,1) < p:
+        if random.random() < p:
             irc.send('PRIVMSG ' + Connection.channel + ' :'+random.choice(citations) + '\r\n')
-            p = 0
+            Communicator.last_activity = current_milli_time()
     data = data.rstrip()
     error_free = True
     try:
