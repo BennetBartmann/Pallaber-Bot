@@ -38,7 +38,10 @@ while True:
 
     if data.find ( 'PING' ) != -1:
         irc.send ( 'PONG ' + data.split() [ 1 ] + '\r\n' )
-        p = math.log((current_milli_time()-communicator.last_activity)/min_citation_interval)
+        if ((current_milli_time()-communicator.last_activity)/min_citation_interval > 0):
+            p = math.log((current_milli_time()-communicator.last_activity)/min_citation_interval)
+        else:
+            p = 0
         print(p)
         if random.randint(0,1) < p:
             irc.send('PRIVMSG ' + Connection.channel + ' :"+random.choice(citations)'+'\r\n')
