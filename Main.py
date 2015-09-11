@@ -51,6 +51,7 @@ while True:
             irc.send('PRIVMSG ' + Connection.channel + ' :'+random.choice(citations) + '\r\n')
             p = 0
     data = data.rstrip()
+    error_free = True
     try:
         where = ''.join (data.split(':')[:2]).split (' ')[-2]
         action = ''.join (data.split(':')[:2]).split (' ')[-3]
@@ -60,6 +61,8 @@ while True:
              where = ''.join (data.split(':')[:2]).split (' ')[-1]
     except:
         print "Unparsable Message"
+        error_free = False
+
     try:
         what = ':'.join(data.split (':')[2:])
     except:
@@ -67,5 +70,6 @@ while True:
     user = user.rstrip()
     user = user.lstrip()
     print data
-    for module in modules:
-        module.use(user,action,where,what)
+    if error_free:
+        for module in modules:
+            module.use(user,action,where,what)
