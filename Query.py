@@ -21,10 +21,18 @@ class Query(ModulePrototype):
     def _wiki(self, nick, what):
         # jo, hier wird wikipedia durchsucht
         w = wikipedia.set_lang('de')
-        query = what.split(' ')[1]
+        q = what.split(' ')
+        query = ''
+        for word in q:
+            if word != '.w':
+                query += word + ' '
         w = wikipedia.search(query)
+        if w.__len__() == 0:
+            defaultlib.send(Connection.channel, nick +
+                            ', leider hat die Suche auf Wikipedia kein Ergebnis gebracht, vielleicht hast du dich vertippt?')
+            return
         page = wikipedia.WikipediaPage(w.pop(0))
         defaultlib.send(Connection.channel, nick + ' ' + page.url)
-        # defaultlib.send(Connection.channel, page.summary)
+        defaultlib.send(Connection.channel, page.summary)#.encode('utf-8'))
 
 
