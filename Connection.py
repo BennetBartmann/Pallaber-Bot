@@ -1,6 +1,6 @@
 __author__ = 'Daniela'
-channel = '#pallaber-Bot'
+channel = '#autistenchat'
 network = 'irc.freenode.org'
 port = 6667
-nick = 'LaberBot_Testversion'
-debug = 1
+nick = 'LaberBot'
+debug = True
