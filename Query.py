@@ -1,7 +1,7 @@
 __author__ = 'Daniela'
 from ModulePrototype import ModulePrototype
 import Connection
-import defaultlib
+from defaultlib import defaultlib
 import wikipedia
 
 class Query(ModulePrototype):
@@ -19,8 +19,12 @@ class Query(ModulePrototype):
         # jo, hier wird gegoogelt
 
     def _wiki(self, nick, what):
-        test = 0
         # jo, hier wird wikipedia durchsucht
-        
+        w = wikipedia.set_lang('de')
+        query = what.split(' ')[1]
+        w = wikipedia.search(query)
+        page = wikipedia.WikipediaPage(w.pop(0))
+        defaultlib.send(Connection.channel, nick + ' ' + page.url)
+        # defaultlib.send(Connection.channel, page.summary)
 
 

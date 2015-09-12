@@ -5,6 +5,7 @@ from Title import Title
 from UserList import UserList
 from Counter import Counter
 from defaultlib import defaultlib
+from Query import Query
 import random
 import math
 import Connection
@@ -29,6 +30,7 @@ modules.append(UserList(communicator))
 modules.append(Counter(communicator))
 modules.append(Seen(communicator))
 modules.append(Title(communicator))
+modules.append(Query(communicator))
 max_citation_interval = 3600000
 min_citation_interval = 600000
 while True:
