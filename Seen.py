@@ -38,7 +38,13 @@ class Seen(ModulePrototype):
             defaultlib.send(Connection.channel, nick + ":" + who +" hab ich noch nicht gesehen, tut mir leid")
 
     def _idle(self, nick):
-        for usr in self.communicator.user:
-            if self.user.get(usr, None) is not None:
-               defaultlib.send(Connection.channel,usr +"<-"+str((self._current_milli_time()-self.user[usr])/60000)+" Minuten")
+        cnt = 0
+        for name, activity in sorted(self.user.iteritems(), key = lambda (k,v): (v,k), reverse=True):
+            if self.user.get(name, None) is not None:
+                if name not in self.communicator.user:
+                    continue
+                cnt += 1
+                defaultlib.send(Connection.channel,name +"<-"+str((self._current_milli_time()-activity)/60000)+" Minuten")
+                if cnt > 2:
+                    break
     _current_milli_time = lambda self: int(round(time.time() * 1000))
