@@ -51,7 +51,7 @@ while True:
         if (Connection.debug):
             print(p)
         if random.random() < p:
-            irc.send('PRIVMSG ' + Connection.channel + ' :'+random.choice(citations) + '\r\n')
+            irc.send('PRIVMSG ' + Connection.channel + ' :'+random.choice(citations).encode('utf-8') + '\r\n')
             if (Connection.debug):
                 print(str((Connection.Connection.time()-communicator.last_activity) / 60000) +
                       'Minuten seit letzter Aktivity beim Random-Spruch-aufsagen')
