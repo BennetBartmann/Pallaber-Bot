@@ -33,8 +33,8 @@ class Counter(ModulePrototype):
         picklefile = open("userstats.stats", "wb")
         pickle.dump(self.user, picklefile)
         picklefile.close()
-        if what.find(".stats") != -1:
-            self._print_stats()
+       # if what.find(".stats") != -1:
+        #    self._print_stats()
 
     def _print_stats(self):
         out_str = ""
