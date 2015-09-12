@@ -1,5 +1,4 @@
 from ModulePrototype import ModulePrototype
-import time
 import Connection
 
 class UserList(ModulePrototype):
@@ -14,6 +13,5 @@ class UserList(ModulePrototype):
         if action == "PRIVMSG" and what.find("PING") == -1:
             if (Connection.debug):
                 print 'no ping?'
-            self.communicator.last_activity = self._current_milli_time()
+            self.communicator.last_activity = Connection.Connection.time()
 
-    _current_milli_time = lambda self: int(round(time.time() * 1000))

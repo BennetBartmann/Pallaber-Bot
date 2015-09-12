@@ -7,7 +7,6 @@ from Counter import Counter
 from defaultlib import defaultlib
 import random
 import math
-import time
 import Connection
 random.seed()
 
@@ -30,7 +29,6 @@ modules.append(UserList(communicator))
 modules.append(Counter(communicator))
 modules.append(Seen(communicator))
 modules.append(Title(communicator))
-current_milli_time = lambda : int(round(time.time() * 1000))
 max_citation_interval = 3600000
 min_citation_interval = 600000
 while True:
@@ -38,8 +36,8 @@ while True:
 
     if data.find ( 'PING' ) != -1:
         irc.send ( 'PONG ' + data.split() [ 1 ] + '\r\n' )
-        if ((current_milli_time()-communicator.last_activity)/min_citation_interval > 0):
-            p = math.log((current_milli_time()-communicator.last_activity)/min_citation_interval)
+        if ((Connection.Connection.time()-communicator.last_activity)/min_citation_interval > 0):
+            p = math.log((Connection.Connection.time()-communicator.last_activity)/min_citation_interval)
         else:
             p = 0
         if (Connection.debug):
@@ -47,9 +45,9 @@ while True:
         if random.random() < p:
             irc.send('PRIVMSG ' + Connection.channel + ' :'+random.choice(citations) + '\r\n')
             if (Connection.debug):
-                print(str((current_milli_time()-communicator.last_activity) / 60000 )+
+                print((Connection.Connection.time()-communicator.last_activity) / 60000 +
                       'Minuten seit letzter Aktivity beim Random-Spruch-aufsagen')
-            communicator.last_activity = current_milli_time()
+            communicator.last_activity = Connection.Connection.time()
     data = data.rstrip()
     error_free = True
     try:

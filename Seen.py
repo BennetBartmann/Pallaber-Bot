@@ -1,5 +1,4 @@
 from ModulePrototype import ModulePrototype
-import time
 import pickle
 from defaultlib import defaultlib
 from collections import defaultdict
@@ -20,7 +19,7 @@ class Seen(ModulePrototype):
     def use(self, nick, action, where, what):
         if action != "PRIVMSG":
             return
-        self.user[nick] = self._current_milli_time()
+        self.user[nick] = Connection.Connection.time()
         picklefile = open("userseen.stats", "wb")
         pickle.dump(self.user, picklefile)
         picklefile.close()
@@ -33,7 +32,7 @@ class Seen(ModulePrototype):
         who = what.split(' ')[1]
         print (who)
         if self.user.get(who, None) is not None:
-            defaultlib.send(Connection.channel, nick + ":" + who + " sah ich zuletzt vor "+ str((self._current_milli_time()-self.user[who])/60000)+ " Minuten")
+            defaultlib.send(Connection.channel, nick + ":" + who + " sah ich zuletzt vor "+ str((Connection.Connection.time()-self.user[who])/60000)+ " Minuten")
         else:
             defaultlib.send(Connection.channel, nick + ":" + who +" hab ich noch nicht gesehen, tut mir leid")
 
@@ -44,7 +43,6 @@ class Seen(ModulePrototype):
                 if name not in self.communicator.user:
                     continue
                 cnt += 1
-                defaultlib.send(Connection.channel,name +"<-"+str((self._current_milli_time()-activity)/60000)+" Minuten")
+                defaultlib.send(Connection.channel,name +"<-"+str((Connection.Connection.time()-activity)/60000)+" Minuten")
                 if cnt > 2:
                     break
-    _current_milli_time = lambda self: int(round(time.time() * 1000))
