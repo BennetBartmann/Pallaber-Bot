@@ -11,6 +11,12 @@ import math
 import Connection
 random.seed()
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+
+
 fobj_in = open("citations.txt")
 citations = []
 for cit in fobj_in:
@@ -47,7 +53,7 @@ while True:
         if random.random() < p:
             irc.send('PRIVMSG ' + Connection.channel + ' :'+random.choice(citations) + '\r\n')
             if (Connection.debug):
-                print((Connection.Connection.time()-communicator.last_activity) / 60000 +
+                print(str((Connection.Connection.time()-communicator.last_activity) / 60000) +
                       'Minuten seit letzter Aktivity beim Random-Spruch-aufsagen')
             communicator.last_activity = Connection.Connection.time()
     data = data.rstrip()
