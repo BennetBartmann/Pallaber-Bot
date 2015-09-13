@@ -14,4 +14,3 @@ class UserList(ModulePrototype):
             if (Connection.debug):
                 print 'no ping?'
             self.communicator.last_activity = Connection.Connection.time()
-

@@ -27,6 +27,8 @@ class Seen(ModulePrototype):
             self._seen(nick, what)
         if what.find(".idle") != -1:
             self._idle(nick)
+        if what.find(".mods") != -1:
+            self._mods(nick)
 
     def _seen(self,nick,what):
         who = what.split(' ')[1]
@@ -46,3 +48,21 @@ class Seen(ModulePrototype):
                 defaultlib.send(Connection.channel,name +"<-"+str((Connection.Connection.time()-activity)/60000)+" Minuten")
                 if cnt > 2:
                     break
+
+    def _mods(self, nick):
+        fobj_in = open("mods.txt")
+        mods = []
+        for mod in fobj_in:
+            mods.append(mod.rstrip())
+        current_mods = []
+        outstring = "Aktuell sind folgende Moderatoren online: "
+        for usr in self.communicator.user:
+            if usr in mods:
+                current_mods.append(usr)
+                outstring += usr + " "
+        if current_mods.__len__() != 0:
+            defaultlib.send(nick, outstring)
+        else:
+            defaultlib.send(nick, "Leider scheint momentan kein Moderator online zu sein.")
+
+
