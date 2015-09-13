@@ -27,9 +27,13 @@ class Counter(ModulePrototype):
         print self.user[nick]
         if action == "JOIN" and self.user[nick] == 0:
             if len(self.communicator.user) > 2:
-                defaultlib.defaultlib.send(where, "Hallo "+nick+" Willkommen im Chat, ich bin hier nur ein Diener, du koenntest dich vorstellen, die anderen Antworten sicher auch bald")
+                defaultlib.defaultlib.send(
+                    "Hallo " + nick + " Willkommen im Chat, ich bin hier nur ein Diener, du koenntest dich vorstellen, die anderen Antworten sicher auch bald",
+                    where)
             else:
-                defaultlib.defaultlib.send(where, "Hallo "+nick+" Willkommen im Chat, ich bin hier nur ein Diener, du hast eine schlechte Zeit erwischt meist ist hier in den Morgen und Abendstunden mehr los!")
+                defaultlib.defaultlib.send(
+                    "Hallo " + nick + " Willkommen im Chat, ich bin hier nur ein Diener, du hast eine schlechte Zeit erwischt meist ist hier in den Morgen und Abendstunden mehr los!",
+                    where)
         picklefile = open("userstats.stats", "wb")
         pickle.dump(self.user, picklefile)
         picklefile.close()
@@ -41,9 +45,9 @@ class Counter(ModulePrototype):
         for user, number in sorted(self.user.iteritems(), key = lambda (k,v): (v,k), reverse=True):
             out_str += user+":"+str(number)+";"
             if len(out_str) > 150:
-                defaultlib.defaultlib.send(Connection.channel, out_str)
+                defaultlib.defaultlib.send(out_str, Connection.channel)
                 out_str = ""
-        defaultlib.defaultlib.send(Connection.channel, out_str)
+        defaultlib.defaultlib.send(out_str, Connection.channel)
 
 
 

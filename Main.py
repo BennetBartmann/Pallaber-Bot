@@ -22,9 +22,9 @@ irc = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
 irc.connect ( ( Connection.network, Connection.port ) )
 print irc.recv ( 4096 )
 defaultlib(irc)
-irc.send ( 'NICK '+Connection.nick+'\r\n' )
-irc.send ( 'USER botty botty botty :IRC Bot\r\n' )
-irc.send ( 'JOIN ' + Connection.channel + '\r\n' )
+irc.send('NICK ' + Connection.nick + '\r\n')
+irc.send('USER botty botty botty :IRC Bot\r\n')
+irc.send('JOIN ' + Connection.channel + '\r\n')
 communicator = Communicator()
 modules = []
 modules.append(UserList(communicator))
@@ -38,7 +38,7 @@ while True:
     data = irc.recv ( 4096 )
 
     if data.find ( 'PING' ) != -1:
-        irc.send ( 'PONG ' + data.split() [ 1 ] + '\r\n' )
+        irc.send('PONG ' + data.split()[1] + '\r\n')
         if ((Connection.Connection.time()-communicator.last_activity)/min_citation_interval > 0):
             p = math.log((Connection.Connection.time()-communicator.last_activity)/min_citation_interval)
         else:
@@ -46,7 +46,7 @@ while True:
         if (Connection.debug):
             print(p)
         if random.random() < p:
-            irc.send('PRIVMSG ' + Connection.channel + ' :'+random.choice(citations).encode('utf-8') + '\r\n')
+            irc.send('PRIVMSG ' + Connection.channel + ' :' + random.choice(citations).encode('utf-8') + '\r\n')
             if (Connection.debug):
                 print(str((Connection.Connection.time()-communicator.last_activity) / 60000) +
                       'Minuten seit letzter Aktivity beim Random-Spruch-aufsagen')

@@ -34,20 +34,39 @@ class Seen(ModulePrototype):
         who = what.split(' ')[1]
         print (who)
         if self.user.get(who, None) is not None:
-            defaultlib.send(Connection.channel, nick + ":" + who + " sah ich zuletzt vor "+ str((Connection.Connection.time()-self.user[who])/60000)+ " Minuten")
+            defaultlib.send(nick + ":" + who + " sah ich zuletzt vor " + str(
+                (Connection.Connection.time() - self.user[who]) / 60000) + " Minuten", Connection.channel)
         else:
-            defaultlib.send(Connection.channel, nick + ":" + who +" hab ich noch nicht gesehen, tut mir leid")
+            defaultlib.send(nick + ":" + who + " hab ich noch nicht gesehen, tut mir leid", Connection.channel)
 
-    def _idle(self, nick):
+    def _idle_old(self, nick):
         cnt = 0
         for name, activity in sorted(self.user.iteritems(), key = lambda (k,v): (v,k), reverse=True):
             if self.user.get(name, None) is not None:
                 if name not in self.communicator.user:
                     continue
                 cnt += 1
-                defaultlib.send(Connection.channel,name +"<-"+str((Connection.Connection.time()-activity)/60000)+" Minuten")
+                defaultlib.send(name + "<-" + str((Connection.Connection.time() - activity) / 60000) + " Minuten",
+                                Connection.channel)
                 if cnt > 2:
                     break
+
+
+    def _idle(self, nick):
+        cnt = [0,0,0] # zwanzig, sechs, zwei minuten
+        for name, activity in sorted(self.user.iteritems(), key = lambda (k,v): (v,k), reverse=True):
+            if self.user.get(name, None) is not None:
+                if name not in self.communicator.user:
+                    continue
+                idle = (Connection.Connection.time()-activity)/60000
+                if idle <= 20:
+                    cnt[0] += 1
+                if idle <= 6:
+                    cnt[1] += 1
+                if idle <= 2:
+                    cnt[2] += 1
+                defaultlib.send('User in den letzten 20 Minuten: ' + str(cnt[0])
+                                + ', 6 Minuten: ' + str(cnt[1]) + ', gerade eben: ' + str(cnt[2]))
 
     def _mods(self, nick):
         fobj_in = open("mods.txt")
@@ -61,8 +80,8 @@ class Seen(ModulePrototype):
                 current_mods.append(usr)
                 outstring += usr + " "
         if current_mods.__len__() != 0:
-            defaultlib.send(nick, outstring)
+            defaultlib.send(outstring, nick)
         else:
-            defaultlib.send(nick, "Leider scheint momentan kein Moderator online zu sein.")
+            defaultlib.send("Leider scheint momentan kein Moderator online zu sein.", nick)
 
 

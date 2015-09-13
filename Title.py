@@ -10,6 +10,6 @@ class Title(ModulePrototype):
                 content = urllib.urlopen(re.search("(?P<url>https?://[^\s]+)", what).group("url")).read()
                 titleRE = re.compile("<title>(.+?)</title>")
                 title = titleRE.search(content).group(1)
-                defaultlib.defaultlib.send(Connection.channel,title )
+                defaultlib.defaultlib.send(title, Connection.channel)
             except:
-                defaultlib.defaultlib.send(Connection.channel,"URL nicht Parsebar" )
+                defaultlib.defaultlib.send("URL nicht Parsebar", Connection.channel)

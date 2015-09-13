@@ -28,11 +28,12 @@ class Query(ModulePrototype):
                 query += word + ' '
         w = wikipedia.search(query)
         if w.__len__() == 0:
-            defaultlib.send(Connection.channel, nick +
-                            ', leider hat die Suche auf Wikipedia kein Ergebnis gebracht, vielleicht hast du dich vertippt?')
+            defaultlib.send(nick +
+                            ', leider hat die Suche auf Wikipedia kein Ergebnis gebracht, vielleicht hast du dich vertippt?',
+                            Connection.channel)
             return
         page = wikipedia.WikipediaPage(w.pop(0))
-        defaultlib.send(Connection.channel, nick + ' ' + page.url)
-        defaultlib.send(Connection.channel, page.summary)
+        defaultlib.send(nick + ' ' + page.url, Connection.channel)
+        defaultlib.send(page.summary, Connection.channel)
 
 
