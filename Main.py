@@ -11,12 +11,6 @@ import math
 import Connection
 random.seed()
 
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-
-
 fobj_in = open("citations.txt")
 citations = []
 for cit in fobj_in:
