@@ -78,4 +78,7 @@ while True:
     print data
     if error_free:
         for module in modules:
-            module.use(user,action,where,what)
+	    try:
+                module.use(user,action,where,what)
+	    except:
+		print "Error in Module"
