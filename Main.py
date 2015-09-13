@@ -10,6 +10,7 @@ import random
 import math
 import Connection
 random.seed()
+import traceback
 
 fobj_in = open("citations.txt")
 citations = []
@@ -74,5 +75,6 @@ while True:
         for module in modules:
 	    try:
                 module.use(user,action,where,what)
-	    except:
-		print "Error in Module"
+	    except Exception as error:
+                print "Error in Module"
+                print user + ': ' + what
