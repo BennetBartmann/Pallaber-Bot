@@ -39,18 +39,28 @@ while True:
 
     if data.find ( 'PING' ) != -1:
         irc.send('PONG ' + data.split()[1] + '\r\n')
-        if ((Connection.Connection.time()-communicator.last_activity)/min_citation_interval > 0):
-            p = math.log((Connection.Connection.time()-communicator.last_activity)/min_citation_interval)
+
+        p = (Connection.Connection.time()-communicator.last_activity)/min_citation_interval
+        if (p > 0):
+            p = math.log(p)
         else:
             p = 0
         if (Connection.debug):
             print(p)
-        if random.random() < p:
-            irc.send('PRIVMSG ' + Connection.channel + ' :' + random.choice(citations).encode('utf-8') + '\r\n')
-            if (Connection.debug):
-                print(str((Connection.Connection.time()-communicator.last_activity) / 60000) +
-                      'Minuten seit letzter Aktivity beim Random-Spruch-aufsagen')
-            communicator.last_activity = Connection.Connection.time()
+        if len(communicator.user) > 1:
+           p = (Connection.Connection.time()-communicator.last_activity)/min_citation_interval
+           if (p > 0):
+               p = math.log(p)
+           else:
+               p = 0
+           if (Connection.debug):
+               print(p)
+           if random.random() < p:
+                irc.send('PRIVMSG ' + Connection.channel + ' :' + random.choice(citations).encode('utf-8') + '\r\n')
+                if (Connection.debug):
+                    print(str((Connection.Connection.time()-communicator.last_activity) / 60000) +
+                          'Minuten seit letzter Aktivity beim Random-Spruch-aufsagen')
+                communicator.last_activity = Connection.Connection.time()
     data = data.rstrip()
     error_free = True
     try:
@@ -63,6 +73,7 @@ while True:
     except:
         print "Unparsable Message"
         error_free = False
+        print data
 
     try:
         what = ':'.join(data.split (':')[2:])
