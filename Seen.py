@@ -65,8 +65,8 @@ class Seen(ModulePrototype):
                     cnt[1] += 1
                 if idle <= 2:
                     cnt[2] += 1
-                defaultlib.send('User in den letzten 20 Minuten: ' + str(cnt[0])
-                                + ', 6 Minuten: ' + str(cnt[1]) + ', gerade eben: ' + str(cnt[2]))
+        defaultlib.send('User in den letzten 20 Minuten: ' + str(cnt[0]) + ', 6 Minuten: '
+                        + str(cnt[1]) + ', gerade eben: ' + str(cnt[2]))
 
     def _mods(self, nick):
         fobj_in = open("mods.txt")
