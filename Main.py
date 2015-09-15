@@ -6,21 +6,14 @@ from UserList import UserList
 from Counter import Counter
 from defaultlib import defaultlib
 from Query import Query
-import random
-import math
+from Citations import Citations
 import Connection
-random.seed()
 import traceback
 
-fobj_in = open("citations.txt")
-citations = []
-for cit in fobj_in:
-    citations.append(cit.rstrip())
+irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-irc = socket.socket ( socket.AF_INET, socket.SOCK_STREAM )
-
-irc.connect ( ( Connection.network, Connection.port ) )
-print irc.recv ( 4096 )
+irc.connect((Connection.network, Connection.port))
+print irc.recv(4096)
 defaultlib(irc)
 irc.send('NICK ' + Connection.nick + '\r\n')
 irc.send('USER botty botty botty :IRC Bot\r\n')
@@ -32,51 +25,32 @@ modules.append(Counter(communicator))
 modules.append(Seen(communicator))
 modules.append(Title(communicator))
 modules.append(Query(communicator))
-max_citation_interval = 3600000
-min_citation_interval = 600000
+cite = Citations(communicator)
+modules.append(cite)
 while True:
-    data = irc.recv ( 4096 )
+    data = irc.recv(4096)
 
-    if data.find ( 'PING' ) != -1:
+    cite._cite()
+
+    if data.find('PING') != -1:
         irc.send('PONG ' + data.split()[1] + '\r\n')
 
-        p = (Connection.Connection.time()-communicator.last_activity)/min_citation_interval
-        if (p > 0):
-            p = math.log(p)
-        else:
-            p = 0
-        if (Connection.debug):
-            print(p)
-        if len(communicator.user) > 1:
-           p = (Connection.Connection.time()-communicator.last_activity)/min_citation_interval
-           if (p > 0):
-               p = math.log(p)
-           else:
-               p = 0
-           if (Connection.debug):
-               print(p)
-           if random.random() < p:
-                irc.send('PRIVMSG ' + Connection.channel + ' :' + random.choice(citations).encode('utf-8') + '\r\n')
-                if (Connection.debug):
-                    print(str((Connection.Connection.time()-communicator.last_activity) / 60000) +
-                          'Minuten seit letzter Aktivity beim Random-Spruch-aufsagen')
-                communicator.last_activity = Connection.Connection.time()
     data = data.rstrip()
     error_free = True
     try:
-        where = ''.join (data.split(':')[:2]).split (' ')[-2]
-        action = ''.join (data.split(':')[:2]).split (' ')[-3]
-        user = data.split('!')[ 0 ].replace(':',' ')
+        where = ''.join(data.split(':')[:2]).split(' ')[-2]
+        action = ''.join(data.split(':')[:2]).split(' ')[-3]
+        user = data.split('!')[0].replace(':', ' ')
         if action != "PRIVMSG":
-             action = action = ''.join (data.split(':')[:2]).split (' ')[-2]
-             where = ''.join (data.split(':')[:2]).split (' ')[-1]
+            action = action = ''.join(data.split(':')[:2]).split(' ')[-2]
+            where = ''.join(data.split(':')[:2]).split(' ')[-1]
     except:
         print "Unparsable Message"
         error_free = False
         print data
 
     try:
-        what = ':'.join(data.split (':')[2:])
+        what = ':'.join(data.split(':')[2:])
     except:
         print "No Info"
     user = user.rstrip()
@@ -84,8 +58,8 @@ while True:
     print data
     if error_free:
         for module in modules:
-	    try:
-                module.use(user,action,where,what)
-	    except Exception as error:
+            try:
+                module.use(user, action, where, what)
+            except Exception as error:
                 print "Error in Module"
                 print user + ': ' + what
