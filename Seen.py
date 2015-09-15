@@ -25,8 +25,8 @@ class Seen(ModulePrototype):
         picklefile.close()
         if what.find(".seen") != -1:
             self._seen(nick, what)
-        if what.find(".idle") != -1:
-            self._idle(nick)
+        if what.find(".activ") != -1:
+            self._activity(nick)
         if what.find(".mods") != -1:
             self._mods(nick)
 
@@ -52,7 +52,7 @@ class Seen(ModulePrototype):
                     break
 
 
-    def _idle(self, nick):
+    def _activity(self, nick):
         cnt = [0,0,0] # zwanzig, sechs, zwei minuten
         for name, activity in sorted(self.user.iteritems(), key = lambda (k,v): (v,k), reverse=True):
             if self.user.get(name, None) is not None:
