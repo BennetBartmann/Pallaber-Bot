@@ -68,6 +68,7 @@ class Seen(ModulePrototype):
         defaultlib.send('User in den letzten 20 Minuten: ' + str(cnt[0]) + ', 6 Minuten: '
                         + str(cnt[1]) + ', gerade eben: ' + str(cnt[2]))
 
+
     def _mods(self, nick):
         fobj_in = open("mods.txt")
         mods = []
