@@ -17,7 +17,7 @@ class Counter(ModulePrototype):
 
     def use(self, nick, action, where, what):
         print [nick, action, where, what]
-        if nick == 'LaberBot':
+        if nick == Connection.nick:
             return
         if where != Connection.channel:
             return
@@ -36,17 +36,28 @@ class Counter(ModulePrototype):
         picklefile = open("userstats.stats", "wb")
         pickle.dump(self.user, picklefile)
         picklefile.close()
-       # if what.find(".stats") != -1:
-        #    self._print_stats()
+        if what.find(".stats") != -1:
+            self._print_stats()
 
     def _print_stats(self):
+        print "here"
         out_str = ""
         for user, number in sorted(self.user.iteritems(), key = lambda (k,v): (v,k), reverse=True):
             out_str += user+":"+str(number)+";"
             if len(out_str) > 150:
-                defaultlib.defaultlib.send(out_str, Connection.channel)
+                defaultlib.defaultlib.send(out_str)
                 out_str = ""
-        defaultlib.defaultlib.send(out_str, Connection.channel)
+        defaultlib.defaultlib.send(out_str)
+
+    def user_authorized(self, user, procent = 5):
+        counts = 0
+        users = 0
+        for usr in self.user.itervalues():
+            counts += usr
+            users += 1
+            print usr, users
+        average = counts/users
+        return self.user[user] > average * (procent / 100)
 
 
 
