@@ -48,15 +48,20 @@ class Counter(ModulePrototype):
                 out_str = ""
         defaultlib.defaultlib.send(out_str)
 
-    def user_authorized(self, user, procent = 5):
+    def user_authorized(self, quser, procent = 5):
         counts = 0
         users = 0
         for usr in self.user.itervalues():
             counts += usr
             users += 1
-            print usr, users
         average = counts/users
-        return self.user[user] > average * (procent / 100)
+        print average
+        allowance =  average * (procent / 100.0)
+        print allowance
+        if self.user[quser] > allowance:
+            return True
+        else:
+            return False
 
 
 

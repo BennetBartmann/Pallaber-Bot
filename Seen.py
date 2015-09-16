@@ -31,8 +31,8 @@ class Seen(ModulePrototype):
             self._mods(nick)
 
     def _seen(self,nick,what):
-        if not self.communicator.counter.user_authorized(nick):
-            defaultlib.send(nick + ":" + who + " tut mir leid ich darf dir hierrauf noch nicht antworten", Connection.channel)
+        if not self.communicator.counter.user_authorized(nick, 25):
+            defaultlib.send(nick + ": tut mir leid ich darf dir hierrauf noch nicht antworten", Connection.channel)
             return
         who = what.split(' ')[1]
         print (who)

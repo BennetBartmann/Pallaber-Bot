@@ -21,7 +21,7 @@ class Query(ModulePrototype):
     def _wiki(self, nick, what):
         # jo, hier wird wikipedia durchsucht
         if not self.communicator.counter.user_authorized(nick):
-            defaultlib.send(nick + ":" + who + " tut mir leid ich darf dir hierrauf noch nicht antworten", Connection.channel)
+            defaultlib.send(nick + ": tut mir leid ich darf dir hierrauf noch nicht antworten", Connection.channel)
             return
         w = wikipedia.set_lang('de')
         q = what.split(' ')
