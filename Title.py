@@ -12,4 +12,4 @@ class Title(ModulePrototype):
                 title = titleRE.search(content).group(1)
                 defaultlib.defaultlib.send(title, Connection.channel)
             except:
-                defaultlib.defaultlib.send("URL nicht Parsebar", Connection.channel)
+                #defaultlib.defaultlib.send("URL nicht parsebar", Connection.channel)
