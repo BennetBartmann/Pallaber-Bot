@@ -19,14 +19,19 @@ irc.send('NICK ' + Connection.nick + '\r\n')
 irc.send('USER botty botty botty :IRC Bot\r\n')
 irc.send('JOIN ' + Connection.channel + '\r\n')
 communicator = Communicator()
+
 modules = []
+count = Counter(communicator)
+cite = Citations(communicator)
+communicator.counter = count
+
 modules.append(UserList(communicator))
-modules.append(Counter(communicator))
+modules.append(count)
 modules.append(Seen(communicator))
 modules.append(Title(communicator))
 modules.append(Query(communicator))
-cite = Citations(communicator)
 modules.append(cite)
+
 while True:
     data = irc.recv(4096)
 
@@ -63,3 +68,5 @@ while True:
             except Exception as error:
                 print "Error in Module"
                 print user + ': ' + what
+                import traceback
+                print traceback.format_exc()
