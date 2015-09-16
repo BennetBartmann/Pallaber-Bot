@@ -21,7 +21,7 @@ class Query(ModulePrototype):
     def _wiki(self, nick, what):
         # jo, hier wird wikipedia durchsucht
         if not self.communicator.counter.user_authorized(nick):
-            defaultlib.send(nick + ": tut mir leid ich darf dir hierrauf noch nicht antworten", Connection.channel)
+            defaultlib.send("Wikipedia soll ich durchsuchen? Schau doch lieber in ein richtiges Lexikon!", Connection.channel)
             return
         w = wikipedia.set_lang('de')
         q = what.split(' ')
@@ -32,7 +32,7 @@ class Query(ModulePrototype):
         w = wikipedia.search(query)
         if w.__len__() == 0:
             defaultlib.send(nick +
-                            ', leider hat die Suche auf Wikipedia kein Ergebnis gebracht, vielleicht hast du dich vertippt?',
+                            ', in Wikipedia finde ich dazu nichts. Möchtest du einen Artikel darüber schreiben?',
                             Connection.channel)
             return
         page = wikipedia.WikipediaPage(w.pop(0))
