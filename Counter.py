@@ -28,11 +28,10 @@ class Counter(ModulePrototype):
         if action == "JOIN" and self.user[nick] == 0:
             if len(self.communicator.user) > 2:
                 defaultlib.defaultlib.send(
-                    "Hallo " + nick + " Willkommen im Chat, ich bin hier nur ein Diener, du koenntest dich vorstellen, die anderen Antworten sicher auch bald",
-                    where)
+                    "Hallo " + nick + ", willkommen im Chat! Ich bin der Bot dieses Channels. Du koenntest hallo sagen, die anderen Anwesenden antworten sicher auch bald.",                    where)
             else:
                 defaultlib.defaultlib.send(
-                    "Hallo " + nick + " Willkommen im Chat, ich bin hier nur ein Diener, du hast eine schlechte Zeit erwischt meist ist hier in den Morgen und Abendstunden mehr los!",
+                    "Hallo " + nick + ", willkommen im Chat! Ich bin der Bot dieses Channels. Du hast gerade eine schlechte Zeit erwischt, meist ist hier in den Morgen und Abendstunden mehr los!",
                     where)
         picklefile = open("userstats.stats", "wb")
         pickle.dump(self.user, picklefile)
