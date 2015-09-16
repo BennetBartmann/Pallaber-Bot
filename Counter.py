@@ -24,7 +24,6 @@ class Counter(ModulePrototype):
 
         if action == "PRIVMSG":
             self.user[nick] += len(what)
-        print self.user[nick]
         if action == "JOIN" and self.user[nick] == 0:
             if len(self.communicator.user) > 2:
                 defaultlib.defaultlib.send(
@@ -36,8 +35,8 @@ class Counter(ModulePrototype):
         picklefile = open("userstats.stats", "wb")
         pickle.dump(self.user, picklefile)
         picklefile.close()
-        if what.find(".stats") != -1:
-            self._print_stats()
+        #if what.find(".stats") != -1:
+        #    self._print_stats()
 
     def _print_stats(self):
         print "here"

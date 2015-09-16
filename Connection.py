@@ -1,5 +1,5 @@
 __author__ = 'Daniela'
-channel = '#pallaber-Bot'
+channel = '#pallaber-bot'
 network = 'irc.freenode.org'
 port = 6667
 nick = 'LaberBot_Testversion'
