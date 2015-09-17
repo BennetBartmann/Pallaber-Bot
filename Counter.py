@@ -31,7 +31,7 @@ class Counter(ModulePrototype):
                 defaultlib.defaultlib.send(
                     "Hallo " + nick + ", willkommen im Chat! Ich bin der Bot dieses Channels. Du hast gerade eine schlechte Zeit erwischt, meist ist hier in den Morgen und Abendstunden mehr los!",
                     where)
-        with open("userstats.stats", "rb") as picklefile:
+        with open("userstats.stats", "wb") as picklefile:
             pickle.dump(self.user, picklefile)
         #if what.find(".stats") != -1:
         #    self._print_stats()
@@ -46,7 +46,7 @@ class Counter(ModulePrototype):
                 out_str = ""
         defaultlib.defaultlib.send(out_str)
 
-    def user_authorized(self, quser, procent = 5):
+    def user_authorized(self, quser, percent = 5):
         counts = 0
         users = 0
         for usr in self.user.itervalues():
@@ -54,7 +54,7 @@ class Counter(ModulePrototype):
             users += 1
         average = counts/users
         print average
-        allowance =  average * (procent / 100.0)
+        allowance =  average * (percent / 100.0)
         print allowance
         if self.user[quser] > allowance:
             return True

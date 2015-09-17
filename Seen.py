@@ -72,7 +72,7 @@ class Seen(ModulePrototype):
 
     def _mods(self, nick):
         mods = []
-        with open("mods.txt") as fobj_in:
+        with open("mods.txt", "rb") as fobj_in:
             for mod in fobj_in:
                 mods.append(mod.rstrip())
         current_mods = []
