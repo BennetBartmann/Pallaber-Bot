@@ -32,7 +32,7 @@ class Query(ModulePrototype):
         w = wikipedia.search(query)
         if w.__len__() == 0:
             defaultlib.send(nick +
-                            ', in Wikipedia finde ich dazu nichts. Möchtest du einen Artikel darüber schreiben?',
+                            ', in Wikipedia finde ich dazu nichts. Magst du einen Artikel dazu schreiben?',
                             Connection.channel)
             return
         page = wikipedia.WikipediaPage(w.pop(0))
