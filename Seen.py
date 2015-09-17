@@ -10,9 +10,8 @@ class Seen(ModulePrototype):
         ModulePrototype.__init__(self, communicator)
         self.user = defaultdict(int)
         try:
-            picklefile = open("userseen.stats", "rb")
-            self.user = pickle.load(picklefile)
-            picklefile.close()
+             with open("userseen.stats", "rb") as picklefile:
+                self.user = pickle.load(picklefile)
         except:
             print "No time pickle loadable"
 
@@ -20,9 +19,8 @@ class Seen(ModulePrototype):
         if action != "PRIVMSG":
             return
         self.user[nick] = Connection.Connection.time()
-        picklefile = open("userseen.stats", "wb")
-        pickle.dump(self.user, picklefile)
-        picklefile.close()
+        with open("userseen.stats", "wb") as picklefile:
+            pickle.dump(self.user, picklefile)
         if what.find(".seen") != -1:
             self._seen(nick, what)
         if what.find(".activ") != -1:
@@ -73,10 +71,10 @@ class Seen(ModulePrototype):
 
 
     def _mods(self, nick):
-        fobj_in = open("mods.txt")
         mods = []
-        for mod in fobj_in:
-            mods.append(mod.rstrip())
+        with open("mods.txt") as fobj_in:
+            for mod in fobj_in:
+                mods.append(mod.rstrip())
         current_mods = []
         outstring = "Aktuell sind folgende Moderatoren online: "
         for usr in self.communicator.user:

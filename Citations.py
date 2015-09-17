@@ -16,9 +16,10 @@ class Citations(ModulePrototype):
 
     def __init__(self, communicator):
         ModulePrototype.__init__(self,communicator)
-        fobj_in = open("citations.txt")
-        for cit in fobj_in:
-            self.citations.append(cit.rstrip())
+        with open("citations.txt") as fobj_in:
+            fobj_in = open("citations.txt")
+            for cit in fobj_in:
+                self.citations.append(cit.rstrip())
         random.seed()
 
     def use(self, nick, action, where, what):

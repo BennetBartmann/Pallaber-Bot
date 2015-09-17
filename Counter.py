@@ -9,9 +9,8 @@ class Counter(ModulePrototype):
         ModulePrototype.__init__(self, communicator)
         self.user = defaultdict(int)
         try:
-            picklefile = open("userstats.stats", "rb")
-            self.user = pickle.load(picklefile)
-            picklefile.close()
+            with open("userstats.stats", "rb") as picklefile:
+                self.user = pickle.load(picklefile)
         except:
             print "No pickle loadable"
 
@@ -32,9 +31,8 @@ class Counter(ModulePrototype):
                 defaultlib.defaultlib.send(
                     "Hallo " + nick + ", willkommen im Chat! Ich bin der Bot dieses Channels. Du hast gerade eine schlechte Zeit erwischt, meist ist hier in den Morgen und Abendstunden mehr los!",
                     where)
-        picklefile = open("userstats.stats", "wb")
-        pickle.dump(self.user, picklefile)
-        picklefile.close()
+        with open("userstats.stats", "rb") as picklefile:
+            pickle.dump(self.user, picklefile)
         #if what.find(".stats") != -1:
         #    self._print_stats()
 
