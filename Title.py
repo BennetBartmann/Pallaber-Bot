@@ -20,4 +20,3 @@ class Title(ModulePrototype):
                     return
                 if Connection.debug:
                     print("URL nicht parsebar: " + what)
-                    

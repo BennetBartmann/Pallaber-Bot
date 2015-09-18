@@ -13,11 +13,11 @@ import traceback
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 irc.connect((Connection.network, Connection.port))
-print irc.recv(4096)
+print(irc.recv(4096))
 defaultlib(irc)
-irc.send('NICK ' + Connection.nick + '\r\n')
-irc.send('USER botty botty botty :IRC Bot\r\n')
-irc.send('JOIN ' + Connection.channel + '\r\n')
+irc.send(bytes('NICK ' + Connection.nick + '\r\n', encoding='utf8'))
+irc.send(bytes('USER botty botty botty :IRC Bot\r\n', encoding='utf8'))
+irc.send(bytes('JOIN ' + Connection.channel + '\r\n', encoding='utf8'))
 communicator = Communicator()
 
 modules = []
@@ -37,8 +37,8 @@ while True:
 
     cite._cite()
 
-    if data.find('PING') != -1:
-        irc.send('PONG ' + data.split()[1] + '\r\n')
+    if data.find('PING'.encode()) != -1:
+        irc.send('PONG '.encode() + data.split()[1] + '\r\n'.encode())
 
     data = data.rstrip()
     error_free = True
@@ -50,23 +50,23 @@ while True:
             action = action = ''.join(data.split(':')[:2]).split(' ')[-2]
             where = ''.join(data.split(':')[:2]).split(' ')[-1]
     except:
-        print "Unparsable Message"
+        print("Unparsable Message")
         error_free = False
-        print data
+        print(data)
 
     try:
         what = ':'.join(data.split(':')[2:])
     except:
-        print "No Info"
-    user = user.rstrip()
-    user = user.lstrip()
-    print data
+        print ("No Info")
+    #print data
     if error_free:
+        user = user.rstrip()
+        user = user.lstrip()
         for module in modules:
             try:
                 module.use(user, action, where, what)
             except Exception as error:
-                print "Error in Module"
-                print user + ': ' + what
+                #print "Error in Module"
+                #print user + ': ' + what
                 import traceback
-                print traceback.format_exc()
+                #print traceback.format_exc()

@@ -12,7 +12,7 @@ class Counter(ModulePrototype):
             with open("userstats.stats", "rb") as picklefile:
                 self.user = pickle.load(picklefile)
         except:
-            print "No pickle loadable"
+            print ("No pickle loadable")
 
     def use(self, nick, action, where, what):
         print [nick, action, where, what]
@@ -37,9 +37,9 @@ class Counter(ModulePrototype):
         #    self._print_stats()
 
     def _print_stats(self):
-        print "here"
+        print ("here")
         out_str = ""
-        for user, number in sorted(self.user.iteritems(), key = lambda (k,v): (v,k), reverse=True):
+        for user, number in sorted(self.user.iteritems(), key = lambda k,v: (v,k), reverse=True):
             out_str += user+":"+str(number)+";"
             if len(out_str) > 150:
                 defaultlib.defaultlib.send(out_str)
@@ -53,9 +53,9 @@ class Counter(ModulePrototype):
             counts += usr
             users += 1
         average = counts/users
-        print average
+        #print average
         allowance =  average * (percent / 100.0)
-        print allowance
+        #print allowance
         if self.user[quser] > allowance:
             return True
         else:

@@ -13,7 +13,7 @@ class Seen(ModulePrototype):
              with open("userseen.stats", "rb") as picklefile:
                 self.user = pickle.load(picklefile)
         except:
-            print "No time pickle loadable"
+            print ("No time pickle loadable")
 
     def use(self, nick, action, where, what):
         if action != "PRIVMSG":
@@ -42,7 +42,7 @@ class Seen(ModulePrototype):
 
     def _idle_old(self, nick):
         cnt = 0
-        for name, activity in sorted(self.user.iteritems(), key = lambda (k,v): (v,k), reverse=True):
+        for name, activity in sorted(self.user.iteritems(), key = lambda k,v: (v,k), reverse=True):
             if self.user.get(name, None) is not None:
                 if name not in self.communicator.user:
                     continue
@@ -55,7 +55,7 @@ class Seen(ModulePrototype):
 
     def _activity(self, nick):
         cnt = [0,0,0] # zwanzig, sechs, zwei minuten
-        for name, activity in sorted(self.user.iteritems(), key = lambda (k,v): (v,k), reverse=True):
+        for name, activity in sorted(self.user.iteritems(), key = lambda k,v: (v,k), reverse=True):
             if self.user.get(name, None) is not None:
                 if name not in self.communicator.user:
                     continue
