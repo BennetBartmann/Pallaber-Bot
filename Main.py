@@ -43,25 +43,26 @@ while True:
     data = data.rstrip()
     error_free = True
     try:
-        where = ''.join(data.split(':')[:2]).split(' ')[-2]
-        action = ''.join(data.split(':')[:2]).split(' ')[-3]
-        user = data.split('!')[0].replace(':', ' ')
-        if action != "PRIVMSG":
-            action = action = ''.join(data.split(':')[:2]).split(' ')[-2]
-            where = ''.join(data.split(':')[:2]).split(' ')[-1]
+        where = data.split(':'.encode())[1].split(' '.encode())[2]
+        action = data.split(':'.encode())[1].split(' '.encode())[1]
+        user = data.split('!'.encode())[0].replace(':'.encode(), ' '.encode())
+        if action != "PRIVMSG".encode():
+            action = data.split(':'.encode())[1].split(' '.encode())[1]
+            where = data.split(':'.encode())[1].split(' '.encode())[2]
     except:
         print("Unparsable Message")
         error_free = False
         print(data)
 
     try:
-        what = ':'.join(data.split(':')[2:])
+        what = data.split(':'.encode())[2]
     except:
         print ("No Info")
     #print data
     if error_free:
         user = user.rstrip()
         user = user.lstrip()
+        user = user.decode().casefold().encode()
         for module in modules:
             try:
                 module.use(user, action, where, what)
