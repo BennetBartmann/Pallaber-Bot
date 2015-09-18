@@ -6,4 +6,10 @@ class defaultlib(object):
     irc = None
     @staticmethod
     def send(what, where=Connection.channel):
-        defaultlib.irc.send('PRIVMSG ' + where + ' :' + what + '\r\n')
+        defaultlib.irc.send('PRIVMSG ' + where + ' :' + what
+                            + '\r\n')
+
+    @staticmethod
+    def debug(message):
+        if Connection.debug:
+            print(message.encode())

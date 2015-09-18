@@ -22,13 +22,13 @@ class Citations(ModulePrototype):
         random.seed()
 
     def use(self, nick, action, where, what):
-        if action != "PRIVMSG":
+        if action != "PRIVMSG".encode():
             return
-        if what.find(".stfu") != -1:
+        if what.find(".stfu".encode()) != -1:
             self._stfu()
-        if what.find(".freq") != -1:
+        if what.find(".freq".encode()) != -1:
             self._freq()
-        if what.find(".reset") != -1:
+        if what.find(".reset".encode()) != -1:
             self._reset()
 
     def _stfu(self):
@@ -58,9 +58,8 @@ class Citations(ModulePrototype):
            if (Connection.debug):
                print(p)
            if random.random() < p:
-                defaultlib.send(random.choice(self.citations).encode('utf-8') + '\r\n')
-                if (Connection.debug):
-                    print(str((Connection.Connection.time()-self.communicator.last_activity) / 60000) +
+                defaultlib.send(random.choice(self.citations) + '\r\n')
+                defaultlib.debug(str((Connection.Connection.time()-self.communicator.last_activity) / 60000) +
                           'Minuten seit letzter Aktivity beim Random-Spruch-aufsagen')
                 self.communicator.last_activity = Connection.Connection.time()
 

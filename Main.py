@@ -15,9 +15,9 @@ irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 irc.connect((Connection.network, Connection.port))
 print(irc.recv(4096))
 defaultlib(irc)
-irc.send(bytes('NICK ' + Connection.nick + '\r\n', encoding='utf8'))
-irc.send(bytes('USER botty botty botty :IRC Bot\r\n', encoding='utf8'))
-irc.send(bytes('JOIN ' + Connection.channel + '\r\n', encoding='utf8'))
+irc.send('NICK '.encode() + Connection.nick + '\r\n'.encode())
+irc.send('USER botty botty botty :IRC Bot\r\n'.encode())
+irc.send('JOIN '.encode() + Connection.channel + '\r\n'.encode())
 communicator = Communicator()
 
 modules = []

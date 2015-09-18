@@ -12,7 +12,7 @@ class Counter(ModulePrototype):
             with open("userstats.stats", "rb") as picklefile:
                 self.user = pickle.load(picklefile)
         except:
-            print ("No pickle loadable")
+            defaultlib.debug("No pickle loadable")
 
     def use(self, nick, action, where, what):
         print [nick, action, where, what]
@@ -21,9 +21,9 @@ class Counter(ModulePrototype):
         if where != Connection.channel:
             return
 
-        if action == "PRIVMSG":
+        if action == "PRIVMSG".encode():
             self.user[nick] += len(what)
-        if action == "JOIN" and self.user[nick] == 0:
+        if action == "JOIN".encode() and self.user[nick] == 0:
             if len(self.communicator.user) > 2:
                 defaultlib.defaultlib.send(
                     "Hallo " + nick + ", willkommen im Chat! Ich bin der Bot dieses Channels. Du koenntest hallo sagen, die anderen Anwesenden antworten sicher auch bald.",                    where)
