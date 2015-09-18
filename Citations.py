@@ -7,7 +7,6 @@ import math
 import random
 
 
-
 class Citations(ModulePrototype):
     citations = []
     max_citation_interval = 3600000
