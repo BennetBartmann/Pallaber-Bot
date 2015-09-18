@@ -11,7 +11,7 @@ import random
 class Citations(ModulePrototype):
     citations = []
     max_citation_interval = 3600000
-    min_citation_interval = 600000
+    min_citation_interval = 600#000
 
 
     def __init__(self, communicator):
@@ -42,7 +42,6 @@ class Citations(ModulePrototype):
         self.min_citation_interval = 600000
 
     def _cite(self):
-        return
         p = (Connection.Connection.time()-self.communicator.last_activity)/self.min_citation_interval
         if (p > 0):
             p = math.log(p)

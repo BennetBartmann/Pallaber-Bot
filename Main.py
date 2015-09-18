@@ -10,6 +10,10 @@ from Citations import Citations
 import Connection
 import traceback
 
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 irc.connect((Connection.network, Connection.port))
