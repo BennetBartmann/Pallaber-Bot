@@ -7,6 +7,8 @@ class Title(ModulePrototype):
     def use(self, nick, action, where, what):
         url = re.search("(?P<url>https?://[^\s]+)", what)
         if url is not None:
+            with open("links.txt", "ab") as links:
+                links.write(what + "\n")
             try:
                 content = urllib.urlopen(url.group("url")).read()
                 titleRE = re.compile("<title>(.+?)</title>")
@@ -18,4 +20,3 @@ class Title(ModulePrototype):
                     return
                 if Connection.debug:
                     print("URL nicht parsebar: " + what)
-
