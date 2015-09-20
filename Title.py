@@ -13,9 +13,9 @@ class Title(ModulePrototype):
                 content = urllib.urlopen(url.group("url")).read()
                 titleRE = re.compile("<title>(.+?)</title>")
                 title = titleRE.search(content).group(1)
-                defaultlib.defaultlib.send(title, Connection.channel)
+                defaultlib.send(title, Connection.channel)
             except:
                 if what == 'http://www.rehakids.de/phpBB2/ftopic112457.html':
-                    defaultlib.defaultlib.send('PDF Adressen zur Autismusdiagnostik :: REHAkids Das Forum fuer besondere Kinder :: Das Forum fuer behinderte Kinder.')
+                    defaultlib.send('PDF Adressen zur Autismusdiagnostik :: REHAkids Das Forum für besondere Kinder :: Das Forum für behinderte Kinder.')
                     return
                 defaultlib.debug("URL nicht parsebar: " + what)

@@ -10,7 +10,7 @@ import random
 class Citations(ModulePrototype):
     citations = []
     max_citation_interval = 3600000
-    min_citation_interval = 600000
+    min_citation_interval = 6#00000
 
 
     def __init__(self, communicator):

@@ -55,7 +55,7 @@ class Seen(ModulePrototype):
 
     def _activity(self, nick):
         cnt = [0,0,0] # zwanzig, sechs, zwei minuten
-        for name, activity in sorted(self.user.items(), key = lambda k,v: (v,k), reverse=True):
+        for name, activity in sorted(iter(self.user.items()), key = lambda k,v: (v,k), reverse=True):
             if self.user.get(name, None) is not None:
                 if name not in self.communicator.user:
                     continue
