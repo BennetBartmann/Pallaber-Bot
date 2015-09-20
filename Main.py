@@ -42,12 +42,13 @@ while True:
         print("Unparsable Message")
         error_free = False
         print(data)
-
     try:
         what = data.split(':')[2]
     except:
         print ("No Info")
-    #print data
+
+    defaultlib.debug(data)
+
     if error_free:
         user = user.rstrip()
         user = user.lstrip()
@@ -56,7 +57,7 @@ while True:
             try:
                 module.use(user, action, where, what)
             except Exception as error:
-                #print "Error in Module"
-                #print user + ': ' + what
+                defaultlib.debug("Error in Module")
+                defaultlib.debug(user + ': ' + what)
                 import traceback
-                #print traceback.format_exc()
+                defaultlib.debug(traceback.format_exc())

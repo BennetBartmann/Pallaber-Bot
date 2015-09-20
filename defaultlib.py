@@ -28,5 +28,6 @@ def recv():
     data = irc.recv(4096)
     if data.find('PING'.encode()) != -1:
         irc.send('PONG '.encode() + data.split()[1] + '\r\n'.encode())
-    return data.rstrip()
+    data = data.rstrip()
+    return data.decode(encoding='UTF-8')
 

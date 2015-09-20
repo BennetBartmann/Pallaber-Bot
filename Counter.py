@@ -15,7 +15,7 @@ class Counter(ModulePrototype):
             defaultlib.debug("No pickle loadable")
 
     def use(self, nick, action, where, what):
-        print [nick, action, where, what]
+        defaultlib.debug([nick, action, where, what])
         if nick == Connection.nick:
             return
         if where != Connection.channel:
@@ -49,7 +49,7 @@ class Counter(ModulePrototype):
     def user_authorized(self, quser, percent = 5):
         counts = 0
         users = 0
-        for usr in self.user.itervalues():
+        for usr in self.user.values():
             counts += usr
             users += 1
         average = counts/users

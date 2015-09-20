@@ -23,7 +23,7 @@ class Seen(ModulePrototype):
             pickle.dump(self.user, picklefile)
         if what.find(".seen") != -1:
             self._seen(nick, what)
-        if what.find(".activ") != -1:
+        if what.find(".active") != -1:
             self._activity(nick)
         if what.find(".mods") != -1:
             self._mods(nick)
@@ -55,7 +55,7 @@ class Seen(ModulePrototype):
 
     def _activity(self, nick):
         cnt = [0,0,0] # zwanzig, sechs, zwei minuten
-        for name, activity in sorted(self.user.iteritems(), key = lambda k,v: (v,k), reverse=True):
+        for name, activity in sorted(self.user.items(), key = lambda k,v: (v,k), reverse=True):
             if self.user.get(name, None) is not None:
                 if name not in self.communicator.user:
                     continue
