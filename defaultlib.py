@@ -5,6 +5,7 @@ __author__ = 'Pups'
 irc = None
 
 def send(what, where=Connection.channel):
+    global irc
     irc.send('PRIVMSG '.encode() + where.encode() + ' :'.encode() +
              what.encode() + '\r\n'.encode())
 
@@ -13,7 +14,7 @@ def debug(message):
         print(message)
 
 def init():
-    test= 0
+    global irc
     irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     irc.connect((Connection.network, Connection.port))
@@ -23,8 +24,9 @@ def init():
     irc.send('JOIN '.encode() + Connection.channel.encode() + '\r\n'.encode())
 
 def recv():
+    global irc
     data = irc.recv(4096)
-    if data.find('PING') != -1:
-        irc.send('PONG '.encode() + data.split()[1].encode() + '\r\n'.encode())
+    if data.find('PING'.encode()) != -1:
+        irc.send('PONG '.encode() + data.split()[1] + '\r\n'.encode())
     return data.rstrip()
 
