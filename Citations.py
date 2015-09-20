@@ -1,4 +1,4 @@
-from defaultlib import defaultlib
+import defaultlib
 
 __author__ = 'Daniela'
 from ModulePrototype import ModulePrototype
@@ -47,16 +47,14 @@ class Citations(ModulePrototype):
             p = math.log(p)
         else:
             p = 0
-        if (Connection.debug):
-            print(p)
+        defaultlib.debug(p)
         if len(self.communicator.user) > 0:
            p = (Connection.Connection.time()-self.communicator.last_activity)/self.min_citation_interval
            if (p > 0):
                p = math.log(p)
            else:
                p = 0
-           if (Connection.debug):
-               print(p)
+           defaultlib.debug(p)
            if random.random() < p:
                 defaultlib.send(random.choice(self.citations) + '\r\n')
                 defaultlib.debug(str((Connection.Connection.time()-self.communicator.last_activity) / 60000) +

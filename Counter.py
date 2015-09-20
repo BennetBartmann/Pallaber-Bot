@@ -21,12 +21,12 @@ class Counter(ModulePrototype):
         if where != Connection.channel:
             return
 
-        if action == "PRIVMSG".encode():
+        if action == "PRIVMSG":
             self.user[nick] += len(what)
-        if action == "JOIN".encode() and self.user[nick] == 0:
+        if action == "JOIN" and self.user[nick] == 0:
             if len(self.communicator.user) > 2:
                 defaultlib.defaultlib.send(
-                    "Hallo " + nick + ", willkommen im Chat! Ich bin der Bot dieses Channels. Du koenntest hallo sagen, die anderen Anwesenden antworten sicher auch bald.",                    where)
+                    "Hallo " + nick + ", willkommen im Chat! Ich bin der Bot dieses Channels. Du koenntest hallo sagen, die anderen Anwesenden antworten sicher auch bald.", where)
             else:
                 defaultlib.defaultlib.send(
                     "Hallo " + nick + ", willkommen im Chat! Ich bin der Bot dieses Channels. Du hast gerade eine schlechte Zeit erwischt, meist ist hier in den Morgen und Abendstunden mehr los!",

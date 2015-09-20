@@ -1,6 +1,6 @@
 from ModulePrototype import ModulePrototype
 import pickle
-from defaultlib import defaultlib
+import defaultlib
 from collections import defaultdict
 import Connection
 

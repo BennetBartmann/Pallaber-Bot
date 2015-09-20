@@ -1,8 +1,8 @@
 __author__ = 'Daniela'
-channel = '#pallaber-bot'.encode()
-network = 'irc.freenode.org'.encode()
+channel = '#pallaber-bot'
+network = 'irc.freenode.org'
 port = 6667
-nick = 'LaberBot_Testversion'.encode()
+nick = 'LaberBot_Testversion'
 debug = True
 
 import time

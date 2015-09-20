@@ -18,5 +18,4 @@ class Title(ModulePrototype):
                 if what == 'http://www.rehakids.de/phpBB2/ftopic112457.html':
                     defaultlib.defaultlib.send('PDF Adressen zur Autismusdiagnostik :: REHAkids Das Forum fuer besondere Kinder :: Das Forum fuer behinderte Kinder.')
                     return
-                if Connection.debug:
-                    print("URL nicht parsebar: " + what)
+                defaultlib.debug("URL nicht parsebar: " + what)

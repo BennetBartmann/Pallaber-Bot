@@ -1,7 +1,7 @@
 __author__ = 'Daniela'
 from ModulePrototype import ModulePrototype
 import Connection
-from defaultlib import defaultlib
+import defaultlib
 import wikipedia
 
 class Query(ModulePrototype):
